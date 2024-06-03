@@ -38,6 +38,9 @@ def test_ptar():
     all_data = []
     while True:
         data, filename = reader.get_next()
+
+
+        
         if data is None:
             break
         print(f"Read file: {filename} with size: {len(data)} bytes")

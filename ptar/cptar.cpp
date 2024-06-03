@@ -6,6 +6,7 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(cptar, m) {
     py::class_<ParallelTarReader>(m, "ParallelTarReader")
-        .def(py::init<const std::vector<std::string>&, size_t, size_t>())
-        .def("get_next_n_data", &ParallelTarReader::get_next_n_data);
+        .def(py::init<const std::vector<std::string>&, size_t, size_t, const std::vector<std::string>&>())
+        .def("get_next_n_data", &ParallelTarReader::get_next_n_data)
+        .def("reset", &ParallelTarReader::reset);
 }
