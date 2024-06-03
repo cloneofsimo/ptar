@@ -8,8 +8,7 @@ schema = ['.txt', '.py', '.cpp']
 reader = Ptar(shardlist, schema)
 
 all_data = []
-data = reader.get_next_n(5)
-print(data)
+
 for i in range(5):
     data = reader.get_next()
     print(data)

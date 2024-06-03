@@ -4,6 +4,32 @@ TBD
 
 `ptar` is a Python package that provides a parallel tar file reader implemented using C++ and `pybind11`. This package allows efficient reading of multiple tar files containing specific file types in parallel using multiple threads that prefetch data in non-blocking fashion, just like how it is done in PyTorch's `DataLoader`. However, it is done with threads and in c++, that speeds up the process significantly.
 
+# Usage
+
+```python
+from ptar import Ptar
+
+shardlist = [f"shard{i}.tar.gz" for i in range(5)]
+# tar has 3 files with extensions .txt, .py, .cpp, in order.
+
+schema = ['.txt', '.py', '.cpp']
+
+reader = Ptar(shardlist, schema)
+
+all_data = []
+
+for i in range(5):
+    data = reader.get_next()
+    print(data)
+    # this will return all 3 of them.
+
+# Make the reader iterate from beginning.
+reader.reset()
+
+# return all 15 of them all at once, as list of lists.
+data = reader.get_next_n(5)
+```
+
 ## Features.
 
 - **Parallel Reading**: Utilizes multiple threads to read from a list of tar files in parallel.
